@@ -38,24 +38,15 @@ class MyHomePage extends StatelessWidget {
             children: [
               Text(
                 'Рамазанова Марина Олеговна',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle (color: Colors.black, fontWeight: FontWeight.bold,),
               ),
               Text(
                 'ИКБО-06-22',
-                style: TextStyle(
-                  color: Colors.blueGrey,
-                  fontStyle: FontStyle.italic,
-                ),
+                style: TextStyle(color: Colors.black, fontStyle: FontStyle.italic,),
               ),
               Text(
                 '22И0799',
-                style: TextStyle(
-                  color: Colors.blueGrey,
-                  letterSpacing: 3.0,
-                )
+                style: TextStyle(color: Colors.black, letterSpacing: 3.0,)
               ),
             ],
           ),
