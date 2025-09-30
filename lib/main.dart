@@ -34,13 +34,17 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Center(
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          mainAxisAlignment: MainAxisAlignment.center ,
+          children: <Widget>[
             Text("Text1"),
+            SizedBox(
+              width: 15,
+              height: 15,
+              child: ColoredBox(color: Colors.brown),
+            ),
             Text("Text2"),
-            Text("Text3"),
-          ],
-        ),
+          ]
+        )
       ),
     );
   }
