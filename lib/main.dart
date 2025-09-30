@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Кнопка'),
+      home: const MyHomePage(title: 'Колонка'),
     );
   }
 }
@@ -36,15 +36,9 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                print("Быстрое нажатие!");
-              },
-              onLongPress: () {
-                print("Долгое нажатие!");
-              },
-              child: const Text("Нажми меня"),
-            ),
+            Text("Text1"),
+            Text("Text2"),
+            Text("Text3"),
           ],
         ),
       ),
