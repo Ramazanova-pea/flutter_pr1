@@ -11,11 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Практика 2',
+      title: 'Практика 3',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Изменения основной страницы'),
+      home: const MyHomePage(title: 'Кнопка'),
     );
   }
 }
@@ -32,22 +32,22 @@ class MyHomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(title),
       ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Рамазанова Марина Олеговна',
-                style: TextStyle (
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,),
-              ),
-            ],
-          ),
-        )
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                print("Быстрое нажатие!");
+              },
+              onLongPress: () {
+                print("Долгое нажатие!");
+              },
+              child: const Text("Нажми меня"),
+            ),
+          ],
+        ),
+      ),
     );
   }
-
 }
-
-
