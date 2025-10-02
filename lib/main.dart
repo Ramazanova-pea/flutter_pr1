@@ -33,18 +33,13 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center ,
-          children: <Widget>[
-            Text("Text1"),
-            SizedBox(
-              width: 15,
-              height: 15,
-              child: ColoredBox(color: Colors.brown),
-            ),
-            Text("Text2"),
-          ]
-        )
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: const Text(
+            "Текст1",
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
       ),
     );
   }
