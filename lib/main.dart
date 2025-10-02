@@ -33,11 +33,16 @@ class MyHomePage extends StatelessWidget {
         title: Text(title),
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
+        child: Container(
+          padding: const EdgeInsets.all(16), // внутренние отступы
+          margin: const EdgeInsets.all(20), // внешние отступы
+          decoration: BoxDecoration(
+            color: Colors.blue, // фон контейнера
+            borderRadius: BorderRadius.circular(12), // скругление углов
+          ),
           child: const Text(
-            "Текст1",
-            style: TextStyle(fontSize: 24),
+            "Привет из контейнера!",
+            style: TextStyle(fontSize: 20, color: Colors.white),
           ),
         ),
       ),
