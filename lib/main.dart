@@ -15,37 +15,68 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Колонка'),
+      home: const HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class HomePage extends StatelessWidget{
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(title),
-      ),
+      appBar: AppBar(title: const Text("Кнопка в центре")),
       body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(16), // внутренние отступы
-          margin: const EdgeInsets.all(20), // внешние отступы
-          decoration: BoxDecoration(
-            color: Colors.blue, // фон контейнера
-            borderRadius: BorderRadius.circular(12), // скругление углов
+        child: HalfRoundedButton(
+            text: "text",
+            onPressed: (){
+              print("Кнопка нажата!");
+            }
+        ),
+      )
+    );
+  }
+}
+
+class HalfRoundedButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const HalfRoundedButton ({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context){
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white60,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            bottomLeft: Radius.circular(16),
           ),
-          child: const Text(
-            "Привет из контейнера!",
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
+          side: BorderSide(
+            color: Colors.black,
+            width: 2,
+          )
+        )
+      ),
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 18,
+          color: Colors.blueGrey,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );
   }
 }
+
+
