@@ -7,68 +7,100 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Практика 3',
+      title: 'Навигация по экранам',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const HomePage(),
+      home: const HomeScreen(),
     );
   }
 }
 
-class HomePage extends StatelessWidget{
-  const HomePage({super.key});
+
+//Хранилище данных приложения
+class AppData {
+  static int halfRoundedButtonClicks = 0;           // сколько раз нажали HalfRoundedButton
+  static List<String> colorChangingButtonColors = [ // какие цвета бывают у ColorChangingButton
+    "Синий",
+    "Красный",
+  ];
+  static bool infoVisited = false;                  // посещали ли экран Инфо
+}
+
+
+//Экран 1 — главный
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Кнопка в центре")),
+      appBar: AppBar(title: const Text("Главный экран")),
       body: Center(
-        child: ColorChangingButton(),
-      )
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Добро пожаловать!"),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ColorButtonScreen()),
+                );
+              },
+              child: const Text("Перейти к ColorChangingButton"),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HalfRoundedButtonScreen()),
+                );
+              },
+              child: const Text("Перейти к HalfRoundedButton"),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const InfoScreen()),
+                );
+              },
+              child: const Text("Инфо экран"),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SettingsScreen()),
+                );
+              },
+              child: const Text("Экран настроек"),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
 
-class HalfRoundedButton extends StatelessWidget {
-  final String text;
-  final VoidCallback onPressed;
-
-  const HalfRoundedButton ({
-    super.key,
-    required this.text,
-    required this.onPressed,
-  });
+//Экран 2 — ColorChangingButton
+class ColorButtonScreen extends StatelessWidget {
+  const ColorButtonScreen({super.key});
 
   @override
-  Widget build(BuildContext context){
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.white60,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            bottomLeft: Radius.circular(16),
-          ),
-          side: BorderSide(
-            color: Colors.black,
-            width: 2,
-          )
-        )
-      ),
-      onPressed: onPressed,
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 18,
-          color: Colors.blueGrey,
-          fontWeight: FontWeight.bold,
-        ),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("ColorChangingButton")),
+      body: const Center(
+        child: ColorChangingButton(),
       ),
     );
   }
@@ -106,4 +138,116 @@ class _ColorChangingButtonState extends State<ColorChangingButton> {
   }
 }
 
+//Экран 3 — HalfRoundedButton
+class HalfRoundedButtonScreen extends StatelessWidget {
+  const HalfRoundedButtonScreen({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("HalfRoundedButton")),
+      body: Center(
+        child: HalfRoundedButton(
+          text: "Нажми меня",
+          onPressed: () {
+            AppData.halfRoundedButtonClicks++;
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text("Нажатий: ${AppData.halfRoundedButtonClicks}")),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class HalfRoundedButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const HalfRoundedButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.white60,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12),
+            bottomLeft: Radius.circular(12),
+          ),
+          side: BorderSide(
+            color: Colors.black,
+            width: 2,
+          ),
+        ),
+      ),
+      onPressed: onPressed,
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontSize: 18,
+          color: Colors.blueGrey,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+
+//Экран 4 — Информация
+
+class InfoScreen extends StatelessWidget {
+  const InfoScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Отмечаем, что экран посещён
+    AppData.infoVisited = true;
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("Инфо")),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Нажатий HalfRoundedButton: ${AppData.halfRoundedButtonClicks}",
+                style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 10),
+            Text("Цвета ColorChangingButton: ${AppData.colorChangingButtonColors.join(", ")}",
+                style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 10),
+            Text("Посещали ли экран Инфо: ${AppData.infoVisited ? "Да" : "Нет"}",
+                style: const TextStyle(fontSize: 18)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+//Экран 5 — Настройки
+class SettingsScreen extends StatelessWidget {
+  const SettingsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Настройки")),
+      body: const Center(
+        child: Text(
+          "Здесь могли бы быть ваши настройки приложения!",
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
+    );
+  }
+}
