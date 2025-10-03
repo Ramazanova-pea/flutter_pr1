@@ -28,12 +28,7 @@ class HomePage extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(title: const Text("Кнопка в центре")),
       body: Center(
-        child: HalfRoundedButton(
-            text: "text",
-            onPressed: (){
-              print("Кнопка нажата!");
-            }
-        ),
+        child: ColorChangingButton(),
       )
     );
   }
@@ -74,6 +69,38 @@ class HalfRoundedButton extends StatelessWidget {
           color: Colors.blueGrey,
           fontWeight: FontWeight.bold,
         ),
+      ),
+    );
+  }
+}
+
+class ColorChangingButton extends StatefulWidget {
+  const ColorChangingButton({super.key});
+
+  @override
+  State<ColorChangingButton> createState() => _ColorChangingButtonState();
+}
+
+class _ColorChangingButtonState extends State<ColorChangingButton> {
+  Color _buttonColor = Colors.blue;
+
+  void _changeColor() {
+    setState(() {
+      _buttonColor = _buttonColor == Colors.blue ? Colors.red : Colors.blue;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: _buttonColor,
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+      ),
+      onPressed: _changeColor,
+      child: const Text(
+        "Нажми меня",
+        style: TextStyle(color: Colors.white, fontSize: 18),
       ),
     );
   }
