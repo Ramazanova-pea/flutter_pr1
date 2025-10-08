@@ -85,28 +85,37 @@ class _ColumnScreenState extends State<ColumnScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 LeftRoundedButton(
-                    text: "Добавить элемент", onPressed: _showAddDialog),
-                RightRoundedButton(text: "Удалить элемент", onPressed: _deleteSelected),
+                  text: "Добавить элемент",
+                  onPressed: _showAddDialog,
+                ),
+                RightRoundedButton(
+                  text: "Удалить элемент",
+                  onPressed: _deleteSelected,
+                ),
               ],
             ),
             const SizedBox(height: 20),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: elements.map((item) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  child: ElementIDEF(
-                    code: item["code"]!,
-                    content: item["content"]!,
-                    selected: item["selected"]!,
-                    onChanged: (value) {
-                      setState(() {
-                        item["selected"] = value;
-                      });
-                    },
-                  ),
-                );
-              }).toList(),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: elements.map((item) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: ElementIDEF(
+                        code: item["code"]!,
+                        content: item["content"]!,
+                        selected: item["selected"]!,
+                        onChanged: (value) {
+                          setState(() {
+                            item["selected"] = value;
+                          });
+                        },
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
             ),
           ],
         ),
@@ -143,7 +152,10 @@ class ElementIDEF extends StatelessWidget {
               children: [
                 Text(
                   code,
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 Text(
                   content,
