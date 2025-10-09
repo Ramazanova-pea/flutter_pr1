@@ -99,6 +99,7 @@ class _ListViewSeparatedScreenState extends State<ListViewSeparatedScreen> {
               itemBuilder: (context, index) {
                 final item = elements[index];
                 return Padding(
+                  key: item["key"],
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                   child: ElementIDEF(
                     code: item["code"]!,
