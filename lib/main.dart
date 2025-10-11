@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pr1/ListViewBuilderScreen.dart';
-import 'CollumScreen.dart';
-import 'ListViewSeparatedScreen.dart';
+
+import 'screen/separetedScreen/ListViewSeparatedScreen.dart';
 
 void main() {
   runApp(const MyApp());
